@@ -125,12 +125,10 @@ client.connect().catch(console.error);
 client.on('message', (channel, tags, message, self) => {
 	if(self) return;
 	const result = message.toLowerCase().search('hallo');
-//	const result = chatMessages.search(message.toLowerCase());
-	console.log(message.toLowerCase().search('hello'));
-	if(chatMessages[message.toLowerCase()]) {
-		//client.say(channel, `@${tags.username}, heya! ${rollDice()}`);
-	//	client.say(channel, `@${tags.username}, heya! ${rollDice()}`);
-		client.say(channel, `@${tags.username}, ${chatMessages.hello.message} `)
+
+	if(result >= 0 ) {
+		client.say(channel, `${chatMessages.hello.message} @${tags.username}`)
+		client.say(channel, `${chatMessages.hello.mess} @${tags.username}`)
   }
 
 });
@@ -142,7 +140,8 @@ function rollDice () {
 
 const chatMessages = {
 	hello: {
-		message: 'Test'
+		message: `Grüße dich`,
+		mess: 'Wie geht es dir heute?'
 	}
 }
 

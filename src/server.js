@@ -1,4 +1,5 @@
 const tmi = require('tmi.js');
+require('dotenv').config();
 
 // const opts = {
 //     identity: {
@@ -115,22 +116,23 @@ const client = new tmi.Client({
 		secure: true
 	},
 	identity: {
-        username: "test",
-        password: "oauth:dasdlkj398u897sdj83"
+        username: process.env.CLIENT_ID,
+        password: process.env.CLIENT_SECRET
 	},
 	channels: [ 'nadflenders' ]
 });
 client.connect().catch(console.error);
 client.on('message', (channel, tags, message, self) => {
 	if(self) return;
-	if(message.toLowerCase() === `!hello`) {
+	const result = message.toLowerCase().search('hallo');
+//	const result = chatMessages.search(message.toLowerCase());
+	console.log(message.toLowerCase().search('hello'));
+	if(chatMessages[message.toLowerCase()]) {
 		//client.say(channel, `@${tags.username}, heya! ${rollDice()}`);
-		client.say(channel, `@${tags.username}, heya! ${rollDice()}`);
-	//	console.log(message.toLowerCase() === `!${chatMessages[message.toLowerCase()]}`)
-		console.log(chatMessages);
+	//	client.say(channel, `@${tags.username}, heya! ${rollDice()}`);
+		client.say(channel, `@${tags.username}, ${chatMessages.hello.message} `)
   }
-  
-  
+
 });
 
 function rollDice () {
@@ -139,7 +141,7 @@ function rollDice () {
 }
 
 const chatMessages = {
-	hello : {
+	hello: {
 		message: 'Test'
 	}
 }
